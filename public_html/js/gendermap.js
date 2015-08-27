@@ -1,0 +1,2 @@
+var map = L.map('map').setView([31.783300, 35.216700], 2);
+L.tileLayer.provider('MapBox', {id: 'leroykabs.2f98fac4', accessToken: 'pk.eyJ1IjoibGVyb3lrYWJzIiwiYSI6ImUyOTBkZTI4OTUwZjRiNTFiYmUwMjZjNzZlOGY2YTZlIn0.gpoLTzM0vAplFO9tTrT5wA'}).addTo(map);
