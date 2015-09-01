@@ -1,5 +1,6 @@
 //TODO:Load densityData without variable see lyzidiamond example
-var geoJson;
+var geojson;
+var markersOn = false;
 
 //Functions
 function getColor(d) {
@@ -45,15 +46,15 @@ function resetHighlight(e) {
     info.update();
 }
 
-//function zoomToFeature(e) {
-//    map.fitBounds(e.target.getBounds());
-//}
+function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+}
 
 function onEachFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
-        mouseout: resetHighlight//,
-//      click: zoomToFeature
+        mouseout: resetHighlight,
+        click: zoomToFeature
     });
 }
 
@@ -85,6 +86,7 @@ geojson = L.geoJson(countriesData, {
     onEachFeature: onEachFeature
 }).addTo(map);
 
+
 //var densityFeatureLayer = L.mapbox.featureLayer()
 //    .loadURL('data/countries.studies.geojson');
 //    //.addTo(map);
@@ -115,18 +117,52 @@ legend.addTo(map);
 
 
 
-//var featureLayer = L.mapbox.featureLayer()
-//    .loadURL('data/studies.geojson');
-////    .addTo(map); 
-//
-//featureLayer.on('ready', function(e) {
-//    // The clusterGroup gets each marker in the group added to it
-//    // once loaded, and then is added to the map
-//    var clusterGroup = new L.MarkerClusterGroup();
-//    e.target.eachLayer(function(layer) {
-//        clusterGroup.addLayer(layer);
-//    });
-//    map.addLayer(clusterGroup);
-//});
+var featureLayer = L.mapbox.featureLayer()
+    .loadURL('data/studies.geojson');
+//    .addTo(map); 
+
+var clusterGroup;
+
+featureLayer.on('ready', function(e) {
+    // The clusterGroup gets each marker in the group added to it
+    // once loaded, and then is added to the map
+    // 
+    // only load them when markers are required
+    if (markersOn === true){
+//        var clusterGroup = new L.MarkerClusterGroup();
+        clusterGroup = new L.MarkerClusterGroup();        
+        e.target.eachLayer(function(layer) {
+            clusterGroup.addLayer(layer);
+        });
+        map.addLayer(clusterGroup);
+    }
+});
+
+
+
+// the function given to this callback will be called every time the map
+// completes a zoom animation.
+map.on('zoomend', function() {
+    if (map.getZoom() >  4) {
+        // similar methods like .setOpacity(0) and .setOpacity(1)
+        if(markersOn === false ){
+            markersOn = true;
+            map.removeControl(legend);
+            map.removeControl(info);
+            map.removeLayer(geojson);
+            featureLayer.loadURL('data/studies.geojson');
+        }
+    } else {
+        if(markersOn === true){
+            markersOn = false; 
+            map.removeLayer(clusterGroup);
+            map.removeLayer(featureLayer);            
+            legend.addTo(map);
+            info.addTo(map);
+            geojson.addTo(map);
+                    
+        }
+    }
+});
 
 
