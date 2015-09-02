@@ -24,13 +24,45 @@ function style(feature) {
     };
 }
 
-function setMarkerStyle(feature){
-    
+function setMarkerStyle(marker){
+    switch(marker.toGeoJSON().properties.CRP)
+    {
+        case "A4NH":
+            return{'marker-color': '#4B0082','marker-symbol':'school'};
+        case "AAS":
+            return{'marker-color': '#2166ac','marker-symbol':'dam'};
+        case "CCAFS":
+            return{'marker-color': '#006400','marker-symbol':'embassy'};
+        case "DC":
+            return{'marker-color': '#CD853F','marker-symbol':'wetland'};
+        case "DS":
+            return{'marker-color': '#CD853F','marker-symbol':'park2'};
+        case "FTA":
+            return{'marker-color': '#006400','marker-symbol':'park2'};
+        case "GL":
+            return{'marker-color': '#CC0000','marker-symbol':'wetland'};
+        case "HT":
+            return{'marker-color': '#CC0000','marker-symbol':'dam'};
+        case "L&F":
+            return{'marker-color': '#4393c3','marker-symbol':'slaughterhouse'};
+        case "PIM":
+            return{'marker-color': '#4B0082','marker-symbol':'commercial'};
+        case "Maize":
+            return{'marker-color': '#006400','marker-symbol':'wetland'};
+        case "GRiSP":
+            return{'marker-color': '#FFA500','marker-symbol':'wetland'};
+        case "RTB":
+            return{'marker-color': '#4B0082','marker-symbol':'wetland'};
+        case "WLE":
+            return{'marker-color': '#2166ac','marker-symbol':'water'};
+        case "Wheat":
+            return{'marker-color': '#CD853F','marker-symbol':'wetland'};
+        default:
+            return{'marker-color': '#696969','marker-symbol':'circle-stroked'};
+    }
 }
 
-function setMarkerSymbol(feature){
-    
-}
+
 
 function highlightFeature(e) {
     var layer = e.target;
@@ -95,12 +127,6 @@ geojson = L.geoJson(countriesData, {
 }).addTo(map);
 
 
-//var densityFeatureLayer = L.mapbox.featureLayer()
-//    .loadURL('data/countries.studies.geojson');
-//    //.addTo(map);
-//    
-
-
 //custom legend
 var legend = L.control({position: 'bottomright'});
 
@@ -130,7 +156,6 @@ var featureLayer = L.mapbox.featureLayer()
 //    .addTo(map); 
 
 var clusterGroup;
-
 featureLayer.on('ready', function(e) {
        
     // The clusterGroup gets each marker in the group added to it
@@ -139,12 +164,16 @@ featureLayer.on('ready', function(e) {
     // only load them when markers are required        
     if (markersOn === true){
         e.target.eachLayer(function(marker) {
+            
+            var test = marker.toGeoJSON().properties.CRP;           
             // See the following for styling hints:
             // https://help.github.com/articles/mapping-geojson-files-on-github#styling-features
-            marker.setIcon(L.mapbox.marker.icon({
-                'marker-color': '#CC0000',
-                'marker-symbol':'wetland'
-            }));
+//            marker.setIcon(L.mapbox.marker.icon({
+//                'marker-color': '#CC0000',
+//                'marker-symbol':'wetland'
+//            }));
+
+            marker.setIcon(L.mapbox.marker.icon(setMarkerStyle(marker)));
         });
         
 //        var clusterGroup = new L.MarkerClusterGroup();
