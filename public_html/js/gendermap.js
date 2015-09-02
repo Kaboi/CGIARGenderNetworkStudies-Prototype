@@ -1,6 +1,7 @@
 //TODO:Load densityData without variable see lyzidiamond example
 var geojson;
 var markersOn = false;
+var countryClicked = false;
 
 //Functions
 function getColor(d) {
@@ -88,6 +89,7 @@ function resetHighlight(e) {
 
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
+    countryClicked = true;
 }
 
 function onEachFeature(feature, layer) {
@@ -164,9 +166,7 @@ featureLayer.on('ready', function(e) {
     // only load them when markers are required        
     if (markersOn === true){
         e.target.eachLayer(function(marker) {
-            
-            var test = marker.toGeoJSON().properties.CRP;           
-            // See the following for styling hints:
+            // Styling hints:
             // https://help.github.com/articles/mapping-geojson-files-on-github#styling-features
 //            marker.setIcon(L.mapbox.marker.icon({
 //                'marker-color': '#CC0000',
@@ -190,9 +190,10 @@ featureLayer.on('ready', function(e) {
 // the function given to this callback will be called every time the map
 // completes a zoom animation.
 map.on('zoomend', function() {
-    if (map.getZoom() >  4) {
-        // similar methods like .setOpacity(0) and .setOpacity(1)
-        if(markersOn === false ){
+    if ( (map.getZoom() >  4) || (countryClicked === true)) {
+        countryClicked = false;
+        // TODO:was thinking of similar methods like .setOpacity(0) and .setOpacity(1)
+        if( (markersOn === false)){
             markersOn = true;
             map.removeControl(legend);
             map.removeControl(info);
