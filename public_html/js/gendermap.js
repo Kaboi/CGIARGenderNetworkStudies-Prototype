@@ -24,6 +24,14 @@ function style(feature) {
     };
 }
 
+function setMarkerStyle(feature){
+    
+}
+
+function setMarkerSymbol(feature){
+    
+}
+
 function highlightFeature(e) {
     var layer = e.target;
 
@@ -116,7 +124,7 @@ legend.addTo(map);
     
 
 
-
+var fillColor = '#91003f';
 var featureLayer = L.mapbox.featureLayer()
     .loadURL('data/studies.geojson');
 //    .addTo(map); 
@@ -124,11 +132,21 @@ var featureLayer = L.mapbox.featureLayer()
 var clusterGroup;
 
 featureLayer.on('ready', function(e) {
+       
     // The clusterGroup gets each marker in the group added to it
     // once loaded, and then is added to the map
     // 
-    // only load them when markers are required
+    // only load them when markers are required        
     if (markersOn === true){
+        e.target.eachLayer(function(marker) {
+            // See the following for styling hints:
+            // https://help.github.com/articles/mapping-geojson-files-on-github#styling-features
+            marker.setIcon(L.mapbox.marker.icon({
+                'marker-color': '#CC0000',
+                'marker-symbol':'wetland'
+            }));
+        });
+        
 //        var clusterGroup = new L.MarkerClusterGroup();
         clusterGroup = new L.MarkerClusterGroup();        
         e.target.eachLayer(function(layer) {
