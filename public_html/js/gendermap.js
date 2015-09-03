@@ -50,7 +50,7 @@ function setMarkerStyle(marker){
             return{'marker-color': '#4B0082','marker-symbol':'commercial'};
         case "Maize":
             return{'marker-color': '#006400','marker-symbol':'wetland'};
-        case "GRiSP":
+        case "GRISP":
             return{'marker-color': '#FFA500','marker-symbol':'wetland'};
         case "RTB":
             return{'marker-color': '#4B0082','marker-symbol':'wetland'};
@@ -103,9 +103,9 @@ function onEachFeature(feature, layer) {
 //Add map
 L.mapbox.accessToken = 'pk.eyJ1IjoibGVyb3lrYWJzIiwiYSI6ImUyOTBkZTI4OTUwZjRiNTFiYmUwMjZjNzZlOGY2YTZlIn0.gpoLTzM0vAplFO9tTrT5wA';
 
-var map = L.mapbox.map('map', 'leroykabs.2f98fac4',{maxZoom:10, minZoom:2})
+var map = L.mapbox.map('map', 'leroykabs.nbi8hpaf',{maxZoom:10, minZoom:2})
     .setView([31.783300, 35.216700], 2);
-    
+
 // control that shows state info on hover
 var info = L.control();
 
@@ -174,6 +174,12 @@ featureLayer.on('ready', function(e) {
 //            }));
 
             marker.setIcon(L.mapbox.marker.icon(setMarkerStyle(marker)));
+            
+            var popupContent = '<h4>' + marker.feature.properties.Name + '</h4>' 
+                                + '<p><strong>CRP:</strong>' + marker.feature.properties.CRP + '</p>'
+                                + '<span class="hand-cursor">more details</span>'
+            
+            marker.bindPopup(popupContent);
         });
         
 //        var clusterGroup = new L.MarkerClusterGroup();
@@ -212,5 +218,4 @@ map.on('zoomend', function() {
         }
     }
 });
-
 
