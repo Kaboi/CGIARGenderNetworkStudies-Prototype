@@ -1,12 +1,12 @@
 html, body{
     height: 100%;
 }
-#map {
+#genderStudiesMap {
     height: 50%;
     width: 50%;
 }
 
-.info {
+.genderInfo {
     padding: 6px 8px;
     font: 14px/16px Arial, Helvetica, sans-serif;
     background: white;
@@ -14,16 +14,16 @@ html, body{
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     border-radius: 5px;
 }
-.info h4 {
+.genderInfo h4 {
     margin: 0 0 5px;
     color: #777;
 }
 
-.legend {
+.genderLegend {
     line-height: 18px;
     color: #555;
 }
-.legend i {
+.genderLegend i {
     width: 18px;
     height: 18px;
     float: left;

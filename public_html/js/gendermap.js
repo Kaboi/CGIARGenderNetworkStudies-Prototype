@@ -103,14 +103,14 @@ function onEachFeature(feature, layer) {
 //Add map
 L.mapbox.accessToken = 'pk.eyJ1IjoibGVyb3lrYWJzIiwiYSI6ImUyOTBkZTI4OTUwZjRiNTFiYmUwMjZjNzZlOGY2YTZlIn0.gpoLTzM0vAplFO9tTrT5wA';
 
-var map = L.mapbox.map('map', 'leroykabs.nbi8hpaf',{maxZoom:9, minZoom:2})
+var map = L.mapbox.map('genderStudiesMap', 'leroykabs.nbi8hpaf',{maxZoom:9, minZoom:2})
     .setView([31.783300, 35.216700], 2);
 
 // control that shows state info on hover
 var info = L.control();
 
 info.onAdd = function(map) {
-    this._div = L.DomUtil.create('div', 'info');
+    this._div = L.DomUtil.create('div', 'genderInfo');
     this.update();
     return this._div;
 };
@@ -134,7 +134,7 @@ var legend = L.control({position: 'bottomright'});
 
 legend.onAdd = function (map) {
 
-    var div = L.DomUtil.create('div', 'info legend'),
+    var div = L.DomUtil.create('div', 'genderInfo genderLegend'),
         grades = [1, 3, 5, 7, 10, 15],
         labels = [];
 
