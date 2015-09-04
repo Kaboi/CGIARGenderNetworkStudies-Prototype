@@ -103,7 +103,7 @@ function onEachFeature(feature, layer) {
 //Add map
 L.mapbox.accessToken = 'pk.eyJ1IjoibGVyb3lrYWJzIiwiYSI6ImUyOTBkZTI4OTUwZjRiNTFiYmUwMjZjNzZlOGY2YTZlIn0.gpoLTzM0vAplFO9tTrT5wA';
 
-var map = L.mapbox.map('map', 'leroykabs.nbi8hpaf',{maxZoom:10, minZoom:2})
+var map = L.mapbox.map('map', 'leroykabs.nbi8hpaf',{maxZoom:9, minZoom:2})
     .setView([31.783300, 35.216700], 2);
 
 // control that shows state info on hover
@@ -175,11 +175,24 @@ featureLayer.on('ready', function(e) {
 
             marker.setIcon(L.mapbox.marker.icon(setMarkerStyle(marker)));
             
-            var popupContent = '<h4>' + marker.feature.properties.Name + '</h4>' 
-                                + '<p><strong>CRP:</strong>' + marker.feature.properties.CRP + '</p>'
-                                + '<span class="hand-cursor">more details</span>'
             
-            marker.bindPopup(popupContent);
+            var studyName = marker.feature.properties.Name === "NULL" ? "" : marker.feature.properties.Name;
+            var studyCRP = marker.feature.properties.CRP === "NULL" ? "" : marker.feature.properties.CRP;
+            var studyStartDate = marker.feature.properties["Start Date"] === "NULL" ? "" : marker.feature.properties["Start Date"];
+            var studyEndDate = marker.feature.properties["End Date"] === "NULL" ? "" : marker.feature.properties["End Date"];
+            var studyContact = marker.feature.properties["Contact Name"] === "NULL" ? "" : marker.feature.properties["Contact Name"];
+            
+            var popupContent = '<p><h4>' + studyName + '</h4>' 
+                               + '<strong>CRP: </strong>' + studyCRP + '<br/>'
+                               + '<strong>Start Date: </strong>' + studyStartDate
+                               + '<span class="tabContent"><strong>End Date: </strong></span>' + studyEndDate + '<br/>'
+                               + '<strong>Contact Name: </strong>' + studyContact + '<br/>'
+                               + '</p>'
+//                                + '<span class="hand-cursor">more details</span>'
+                                ;
+            marker.bindPopup(popupContent, {
+                closeButton: false
+            });
         });
         
 //        var clusterGroup = new L.MarkerClusterGroup();
