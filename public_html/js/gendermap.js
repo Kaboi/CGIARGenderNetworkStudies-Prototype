@@ -104,7 +104,7 @@ function onEachFeature(feature, layer) {
 L.mapbox.accessToken = 'pk.eyJ1IjoibGVyb3lrYWJzIiwiYSI6ImUyOTBkZTI4OTUwZjRiNTFiYmUwMjZjNzZlOGY2YTZlIn0.gpoLTzM0vAplFO9tTrT5wA';
 
 var map = L.mapbox.map('genderStudiesMap', 'leroykabs.nbi8hpaf',{maxZoom:9, minZoom:2})
-    .setView([31.783300, 35.216700], 2);
+    .setView([31.783300, 35.216700], 3);
 
 // control that shows state info on hover
 var info = L.control();
