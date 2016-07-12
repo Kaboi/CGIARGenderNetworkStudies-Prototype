@@ -1,3 +1,6 @@
+/* global L */
+//test
+//test
 var geojson;
 var markersOn = false;
 var countryClicked = false;
@@ -43,8 +46,10 @@ function setMarkerStyle(marker){
 //Add map
 L.mapbox.accessToken = 'pk.eyJ1IjoibGVyb3lrYWJzIiwiYSI6ImUyOTBkZTI4OTUwZjRiNTFiYmUwMjZjNzZlOGY2YTZlIn0.gpoLTzM0vAplFO9tTrT5wA';
 
-var map = L.mapbox.map('genderStudiesMap', 'leroykabs.nbi8hpaf',{maxZoom:9, minZoom:2})
+var map = L.mapbox.map('genderStudiesMap')
     .setView([31.783300, 35.216700], 3);
+    
+    L.mapbox.styleLayer('mapbox://styles/mapbox/light-v9').addTo(map);
 
 var fillColor = '#91003f';
 var featureLayer = L.mapbox.featureLayer()
