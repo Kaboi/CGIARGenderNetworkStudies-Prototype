@@ -108,7 +108,7 @@ L.mapbox.accessToken = 'pk.eyJ1IjoibGVyb3lrYWJzIiwiYSI6ImUyOTBkZTI4OTUwZjRiNTFiY
     .setView([31.783300, 35.216700], 3);
  */
 
-    var map = L.mapbox.map('genderStudiesMap', {
+    var map = L.mapbox.map('genderStudiesMap', null, {
         maxZoom:9, 
         minZoom:2
     })
